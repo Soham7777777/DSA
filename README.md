@@ -108,3 +108,115 @@ Design of complex algorithm is blend of top-down and bottom-up approach.
 
 
 ## Time and Space Complexity:
+
+**Time complexity:** Running time of the program as a function of input size.
+
+**Space complexity:** Amount of computer memory required to run the program as a function of input size.
+  - **Fixed part:** Memory allocated for storing instructions, constants, variables, structures, etc... that initializes the program.
+  - **Variable part:** Memory allocated during runtime which includes recursion stack and dynamic memory allocation.
+
+
+### Time Complexity Cases:
+
+**Worst case:** Behavior of an algorithm with respect to worst possible case of input instance.
+
+**Average case:** Behavior of an algorithm with respect to 'average' input instance that is randomly drawn from given distribution with all inputs of given size are equally likely.
+
+**Best case:** Behavior of an algorithm under optimal conditions.
+
+**Amortized running time:** Time required to perform a sequence of related operations averaged over all the operations performed, this guarantees the average performance for each operation in the worst case.
+
+
+### Time-Space Trade-off:
+
+- There may be more than one way to solve same problem with different algorithms that requires different memory and time constraints. Algorithms are chosen based on current major concern e.g. memory is sacrificed for time, or time is sacrificed for memory if memory is major concern.
+
+
+- The time complexity is expressed as `f(n)` where is n is the input size.
+  - This is used to predict the rate of growth of complexity as the input size increased.
+  - Compare different algorithms that solves the same problem.
+
+- Efficiency of algorithm is directly proportional to the number of iterations in each loop.
+
+
+### Types of Loops:
+
+**Liner loops:**
+```
+for(i=0;i<100;i++) -> f(n) = n
+
+for(i=0;i<100;i+=2) -> f(n) = n/2
+```
+
+**Logarithmic loops:**
+```
+for(i=1;i<1000;i*=2) -> f(n) = log2(n)
+
+for(i=1000;i>=1;i/=2) -> f(n) = log2(n)
+```
+
+**Nested loops**:
+```
+Liner logarithmic loop:
+  for(i=0;i<10;i++) -> f(n) = n
+    for(j=1; j<10;j*=2) -> f(n) = log2(n)
+  
+  time complexity: n x log(n)
+```
+```
+Quadratic loop:
+  for(i=0;i<10;i++) -> f(n) = n
+    for(j=0; j<10;j++) -> f(n) = n
+
+  time complexity: n^2
+```
+```
+Dependent quadratic loop:
+  for(i=0;i<10;i++) -> f(n) = n
+    for(j=0; j<=i;j++) -> f(n) = (n+1)/2
+  
+  time complexity: n x ((n+1)/2)
+```
+
+**Exponential loops:**
+```
+for (int i = 1; i*i <= n; i++) -> f(n) = sqrt(n)
+
+void backtrack(string s) {
+    if (s.length() == n) return;
+    backtrack(s + "0");
+    backtrack(s + "1");
+} -> f(n) = 2^n
+
+void generateSequences(vector<int>& seq, int n, int k) {
+    if (seq.size() == k) {
+        // Process the k-length sequence
+        for (int num : seq) cout << num << " ";
+        cout << endl;
+        return;
+    }
+    
+    for (int i = 0; i < n; i++) {
+        seq.push_back(i);  // Choose an element
+        generateSequences(seq, n, k);  // Recurse
+        seq.pop_back();  // Backtrack
+    }
+} -> f(n) = k^n
+```
+
+**Factorial loops:**
+```
+void permute(vector<int>& nums, int index) {
+    if (index == nums.size()) return;
+    for (int i = index; i < nums.size(); i++) {
+        swap(nums[i], nums[index]);
+        permute(nums, index + 1);
+        swap(nums[i], nums[index]);
+    }
+} -> f(n) = n!
+```
+
+**Log-logarithmic loops:**
+```
+for (int i = 2; i <= n; i = pow(i, 2)) -> f(n) = log(log(n))
+```
