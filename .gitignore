@@ -1,1 +1,4 @@
 *.out
+.vscode
+temp.c
+temp_*.c
